@@ -1,7 +1,12 @@
 #include<stdio.h>
-int n,m,s,j,k,h;//n是物品的个数，m是物品的约束条件个数;
-float bestp=0,cp=0,z;//bestp表示当前最优总价值,cp表示当前总价价值；
-float p[5000],a[5000][5000],b[5000],bestcp[5000];//定义物品的价值，物品的属性条件,约束总值，将bestp的值存入bestpcp[]；
+int n;//n是物品的个数
+int m;//m是物品的约束条件个数
+int s,j,k,h,z;//用于循环判断
+float p[10000];//定义物品的价值
+float a[10000][10000]; //物品属性条件
+float b[10000];//物品约束总值
+float bestp=0,cp=0;//bestp表示当前最优总价值,cp表示当前总价价值；
+float bestcp[10000];//目前最大价值，将bestp的值存入bestpcp[]；
 void  Backtrack(int i,float b[])
 { 
     if(i>n)//回溯结束,算法搜索到叶子结点
