@@ -1,0 +1,62 @@
+#include<stdio.h>
+int n,m,s,j,k,h;//n是物品的个数，m是物品的约束条件个数;
+float bestp=0,cp=0,z;//bestp表示当前最优总价值,cp表示当前总价价值；
+float p[5000],a[5000][5000],b[5000],bestcp[5000];//定义物品的价值，物品的属性条件,约束总值，将bestp的值存入bestpcp[]；
+void  Backtrack(int i,float b[])
+{ 
+    if(i>n)//回溯结束,算法搜索到叶子结点
+    {
+        if(cp>bestp)//当前总价值大于目前最优总价值
+            bestp=cp;//将CP赋值给bestp，即更新当前最优总价值为当前总价值
+		    k++;
+          bestcp[k]=bestp;//将bestp暂时存在一个数组
+    }
+        else 
+        	
+        { s=1;
+        	for(j=1;j<=m;j++)  
+                {
+				  z=b[j]-a[j][i]; //判断物品是否满足条件
+				  if(z<0){
+					  s=0;  //s=0表示不选此物品
+					  break;}}
+				  if(s==1)    //s==1，表示选此物品
+					  {cp=cp+p[i];    //存放物品后，获得当前价值cp
+				  for(k=1;k<=m;k++)   //有m个约束条件就循环m次
+				  {
+					  b[k]=b[k]-a[k][i]; //存放后减去容量
+				  }
+				  	
+				  Backtrack(i+1,b);
+			      cp=cp-p[i];     //到达叶子结点后，回溯
+				  for(h=1;h<=m;h++){  //有m个约束条件就循环m次
+				  b[h]=b[h]+a[h][i];  //拿出已经存放的物品后，加上它原来的容量
+			  }
+			}
+				 Backtrack(i+1,b);
+			  }
+		
+}
+
+ void  main()
+{
+    int i,j; 
+    printf("请输入物品个数和约束条件个数:\n");
+    scanf("%d %d",&n,&m);
+    printf("请依次输入物品的价值:\n");
+    for(i=1;i<=n;i++) 
+        scanf("%f",&p[i]);
+    printf("请输入物品属性条件:\n");
+	for(i=1;i<=m;i++)
+		for(j=1;j<=n;j++)
+			scanf("%f",&a[i][j]);
+	printf("请输入约束条件的总值\n");
+	
+	for(i=1;i<=m;i++)
+	scanf("%f",&b[i]);
+	Backtrack(1,b);
+    
+	printf("最大价值为:\n");
+    printf("%.1f\n",bestcp[k-1]);
+
+    }
